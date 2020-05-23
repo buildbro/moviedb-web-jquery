@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Popular movies in JS</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-light bg-light justify-content-between">
+		<div class="container">
+			<a class="navbar-brand">Popular Movies</a>
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container mt-3">
+		<div class="row movies">
+			<!-- Movies will be loaded into this space -->
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var api_key = ""; //TODO insert your unique API KEY here
+		var api_url = "https://api.themoviedb.org/3/movie/popular?api_key=" + api_key;
+		$.getJSON( api_url, function( data ) {
+
+			$.each( data.results, function( i, item ) {
+				var posterFullUrl = "https://image.tmdb.org/t/p/w185//" + item.poster_path;
+				$("<div class='col-3 mb-1'><img src='" + posterFullUrl + "'><h5>" + item.title + "</h5></div>").appendTo(".movies");
+			});
+		});
+	</script>
+
+</body>
+</html>
