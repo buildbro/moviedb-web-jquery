@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular movies in JS</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <div class="container">
+            <a class="navbar-brand">Popular Movies</a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="row movies" id="movies">
+            <!-- Movies will be loaded into this space -->
+        </div>
+    </div>
+
+    <script>
+        const apik_key = "PUT_YOUR_API_KEY_HERE";
+        const api_url = `https://api.themoviedb.org/3/movie/popular?api_key=${apik_key}`;
+        try {
+            fetch(api_url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                let content = '';
+                data.results.forEach(({original_title, overview, poster_path}) => {
+                    const movieCard  = `
+                        <div class="col-3 mb-1">
+                            <img src="https://image.tmdb.org/t/p/w185//${poster_path}">
+                        </div>
+                    `;
+                    content += movieCard;
+                    console.log(original_title);
+                });
+                const container = document.getElementById("movies");
+                container.innerHTML = content;
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    </script>
+</body>
+</html>
